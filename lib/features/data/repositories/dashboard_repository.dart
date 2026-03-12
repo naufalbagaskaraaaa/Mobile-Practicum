@@ -1,41 +1,38 @@
 import '../models/dashboard_model.dart';
 
 class DashboardRepository {
-  /// Mendapatkan data dashboard
   Future<DashboardData> getDashboardData() async {
-    // Simulasi Network Delay (Loading) selama 1 detik
     await Future.delayed(const Duration(seconds: 1));
 
-    // Mengembalikan Data Dummy
     return DashboardData(
       userName: 'Admin D4TI',
       lastUpdate: DateTime.now(),
       stats: [
         DashboardStats(
           title: 'Total Mahasiswa',
-          value: '1,234',
-          subtitle: 'Mahasiswa terdaftar',
+          value: '1,200',
+          subtitle: '',
           percentage: 8.5,
           isIncrease: true,
         ),
         DashboardStats(
           title: 'Mahasiswa Aktif',
-          value: '1,180',
-          subtitle: 'Sedang kuliah',
+          value: '550',
+          subtitle: '',
           percentage: 5.2,
           isIncrease: true,
         ),
         DashboardStats(
-          title: 'Jumlah Kelas',
-          value: '48',
-          subtitle: 'Kelas semester ini',
+          title: 'Dosen',
+          value: '650',
+          subtitle: '',
           percentage: 2.1,
           isIncrease: false,
         ),
         DashboardStats(
-          title: 'Tingkat Kelulusan',
-          value: '94%',
-          subtitle: 'Tahun ini',
+          title: 'Profile',
+          value: '',
+          subtitle: '',
           percentage: 3.5,
           isIncrease: true,
         ),
@@ -43,12 +40,10 @@ class DashboardRepository {
     );
   }
 
-  /// Refresh dashboard data
   Future<DashboardData> refreshDashboard() async {
     return getDashboardData();
   }
 
-  /// Get specific stat by title
   Future<DashboardStats?> getStatByTitle(String title) async {
     final data = await getDashboardData();
     try {

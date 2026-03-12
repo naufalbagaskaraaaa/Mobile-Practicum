@@ -1,4 +1,3 @@
-/// Model statistik di dashboard
 class DashboardStats {
   final String title;
   final String value;
@@ -35,7 +34,6 @@ class DashboardStats {
   }
 }
 
-/// Model data dashboard
 class DashboardData {
   final List<DashboardStats> stats;
   final String userName;
@@ -63,7 +61,6 @@ class DashboardData {
     };
   }
 
-  // Copy with method
   DashboardData copyWith({
     List<DashboardStats>? stats,
     String? userName,
