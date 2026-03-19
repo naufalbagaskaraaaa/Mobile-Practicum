@@ -5,8 +5,9 @@ import '../../../../core/widgets/common_widgets.dart';
 import '../providers/dashboard_provider.dart';
 import '../widgets/dashboard_widgets.dart';
 
-// Tambahan Import Dosen Page
 import '../../dosen/presentation/pages/dosen_page.dart';
+import '../../mahasiswa/presentation/pages/mahasiswa_page.dart';
+import '../../mahasiswa_aktif/presentation/pages/mahasiswa_aktif_page.dart';
 
 class DashboardPage extends ConsumerWidget {
   const DashboardPage({super.key});
@@ -232,8 +233,16 @@ class DashboardPage extends ConsumerWidget {
                                 ref.read(selectedStatIndexProvider.notifier).state = index;
                                 
                                 Widget? targetPage;
-                                if (stat.title == 'Dosen') {
-                                  targetPage = const DosenPage(); 
+                                switch (stat.title) {
+                                  case 'Dosen':
+                                    targetPage = const DosenPage();
+                                    break;
+                                  case 'Total Mahasiswa':
+                                    targetPage = const MahasiswaPage();
+                                    break;
+                                  case 'Mahasiswa Aktif':
+                                    targetPage = const MahasiswaAktifPage();
+                                    break;
                                 }
 
                                 if (targetPage != null) {
