@@ -17,15 +17,18 @@ class ModernMahasiswaCard extends StatefulWidget {
   State<ModernMahasiswaCard> createState() => _ModernMahasiswaCardState();
 }
 
-class _ModernMahasiswaCardState extends State<ModernMahasiswaCard> with SingleTickerProviderStateMixin {
+class _ModernMahasiswaCardState extends State<ModernMahasiswaCard>
+    with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<double> _scaleAnimation;
 
   @override
   void initState() {
     super.initState();
-    _controller = AnimationController(duration: const Duration(milliseconds: 150), vsync: this);
-    _scaleAnimation = Tween<double>(begin: 1.0, end: 0.97).animate(CurvedAnimation(parent: _controller, curve: Curves.easeInOut));
+    _controller = AnimationController(
+        duration: const Duration(milliseconds: 150), vsync: this);
+    _scaleAnimation = Tween<double>(begin: 1.0, end: 0.97).animate(
+        CurvedAnimation(parent: _controller, curve: Curves.easeInOut));
   }
 
   @override
@@ -36,7 +39,16 @@ class _ModernMahasiswaCardState extends State<ModernMahasiswaCard> with SingleTi
 
   @override
   Widget build(BuildContext context) {
-    final gradientColors = widget.gradientColors ?? [Theme.of(context).primaryColor, Theme.of(context).primaryColor.withValues(alpha: 0.7)];
+    final gradientColors = widget.gradientColors ??
+        [
+          Theme.of(context).primaryColor,
+          Theme.of(context).primaryColor.withValues(alpha: 0.7)
+        ];
+
+    // Ambil huruf pertama dari title untuk avatar
+    final String avatarLetter = widget.mahasiswa.title.isNotEmpty
+        ? widget.mahasiswa.title.substring(0, 1).toUpperCase()
+        : '?';
 
     return GestureDetector(
       onTapDown: (_) => _controller.forward(),
@@ -50,33 +62,58 @@ class _ModernMahasiswaCardState extends State<ModernMahasiswaCard> with SingleTi
         child: Container(
           margin: const EdgeInsets.only(bottom: 16),
           decoration: BoxDecoration(
-            gradient: LinearGradient(colors: [Colors.white, gradientColors[0].withValues(alpha: 0.05)]),
+            gradient: LinearGradient(
+                colors: [Colors.white, gradientColors[0].withValues(alpha: 0.05)]),
             borderRadius: BorderRadius.circular(20),
-            border: Border.all(color: gradientColors[0].withValues(alpha: 0.1)),
+            border:
+                Border.all(color: gradientColors[0].withValues(alpha: 0.1)),
           ),
           child: Padding(
             padding: const EdgeInsets.all(16),
             child: Row(
               children: [
+                // Avatar
                 Container(
-                  width: 60, height: 60,
-                  decoration: BoxDecoration(gradient: LinearGradient(colors: gradientColors), borderRadius: BorderRadius.circular(16)),
-                  child: Center(child: Text(widget.mahasiswa.nama.substring(0, 1).toUpperCase(), style: const TextStyle(color: Colors.white, fontSize: 24, fontWeight: FontWeight.bold))),
+                  width: 60,
+                  height: 60,
+                  decoration: BoxDecoration(
+                      gradient: LinearGradient(colors: gradientColors),
+                      borderRadius: BorderRadius.circular(16)),
+                  child: Center(
+                    child: Text(avatarLetter,
+                        style: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 24,
+                            fontWeight: FontWeight.bold)),
+                  ),
                 ),
                 const SizedBox(width: 16),
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(widget.mahasiswa.nama, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold), maxLines: 1),
+                      Text(widget.mahasiswa.title,
+                          style: const TextStyle(
+                              fontSize: 16, fontWeight: FontWeight.bold),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis),
                       const SizedBox(height: 8),
-                      _buildInfoRow(Icons.badge_outlined, 'NIM: ${widget.mahasiswa.nim}'),
+                      _buildInfoRow(
+                          Icons.badge_outlined,
+                          'ID: ${widget.mahasiswa.id}'),
                       const SizedBox(height: 4),
-                      _buildInfoRow(Icons.school_outlined, 'Status ${widget.mahasiswa.status} | Jurusan: ${widget.mahasiswa.jurusan}'),
+                      _buildInfoRow(
+                          Icons.person_outlined,
+                          'User ID: ${widget.mahasiswa.userId}'),
+                      const SizedBox(height: 4),
+                      _buildInfoRow(
+                          Icons.notes_outlined,
+                          widget.mahasiswa.body),
                     ],
                   ),
                 ),
-                Icon(Icons.arrow_forward_ios_rounded, size: 16, color: gradientColors[0]),
+                Icon(Icons.arrow_forward_ios_rounded,
+                    size: 16, color: gradientColors[0]),
               ],
             ),
           ),
@@ -90,7 +127,11 @@ class _ModernMahasiswaCardState extends State<ModernMahasiswaCard> with SingleTi
       children: [
         Icon(icon, size: 14, color: Colors.grey[600]),
         const SizedBox(width: 6),
-        Expanded(child: Text(text, style: TextStyle(fontSize: 13, color: Colors.grey[700]), maxLines: 1, overflow: TextOverflow.ellipsis)),
+        Expanded(
+            child: Text(text,
+                style: TextStyle(fontSize: 13, color: Colors.grey[700]),
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis)),
       ],
     );
   }

@@ -50,24 +50,29 @@ class _ModernMahasiswaCardState extends State<ModernMahasiswaCard> with SingleTi
         child: Container(
           margin: const EdgeInsets.only(bottom: 16),
           decoration: BoxDecoration(
-            gradient: LinearGradient(colors: [Colors.white, gradientColors[0].withValues(alpha: 0.05)]),
+            gradient: LinearGradient(
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+              colors: [Colors.white, gradientColors[0].withValues(alpha: 0.05)]
+            ),
             borderRadius: BorderRadius.circular(20),
             border: Border.all(color: gradientColors[0].withValues(alpha: 0.1)),
           ),
           child: Padding(
             padding: const EdgeInsets.all(16),
             child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Container(
-                  width: 60, height: 60,
+                  width: 50, height: 50,
                   decoration: BoxDecoration(
                     gradient: LinearGradient(colors: gradientColors), 
                     borderRadius: BorderRadius.circular(16)
                   ),
                   child: Center(
                     child: Text(
-                      widget.mahasiswa.nama.substring(0, 1).toUpperCase(), 
-                      style: const TextStyle(color: Colors.white, fontSize: 24, fontWeight: FontWeight.bold)
+                      widget.mahasiswa.name.substring(0, 1).toUpperCase(), 
+                      style: const TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold)
                     )
                   ),
                 ),
@@ -76,17 +81,33 @@ class _ModernMahasiswaCardState extends State<ModernMahasiswaCard> with SingleTi
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(widget.mahasiswa.nama, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold), maxLines: 1),
+                      Text(
+                        widget.mahasiswa.name, 
+                        style: const TextStyle(fontSize: 15, fontWeight: FontWeight.bold), 
+                        maxLines: 1, 
+                        overflow: TextOverflow.ellipsis
+                      ),
                       const SizedBox(height: 8),
-                      _buildInfoRow(Icons.badge_outlined, 'NIM: ${widget.mahasiswa.nim}'),
+                      _buildInfoRow(
+                        Icons.tag_rounded, 
+                        'Post ID: ${widget.mahasiswa.postId} • Comment ID: ${widget.mahasiswa.id}'
+                      ),
                       const SizedBox(height: 4),
                       _buildInfoRow(Icons.email_outlined, widget.mahasiswa.email),
-                      const SizedBox(height: 4),
-                      _buildInfoRow(Icons.school_outlined, 'Semester ${widget.mahasiswa.semester} • IPK: ${widget.mahasiswa.ipk}'),
+                      const SizedBox(height: 8),
+                      Text(
+                        '"${widget.mahasiswa.body.replaceAll('\n', ' ')}"',
+                        style: TextStyle(
+                          fontSize: 13, 
+                          color: Colors.grey[700],
+                          fontStyle: FontStyle.italic,
+                        ),
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                      ),
                     ],
                   ),
                 ),
-                Icon(Icons.arrow_forward_ios_rounded, size: 16, color: gradientColors[0]),
               ],
             ),
           ),

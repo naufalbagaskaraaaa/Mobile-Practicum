@@ -101,7 +101,7 @@ class ModernDosenCardState extends State<ModernDosenCard> with SingleTickerProvi
                   ),
                   child: Center(
                     child: Text(
-                      widget.dosen.nama.substring(0, 1).toUpperCase(),
+                      widget.dosen.name.substring(0, 1).toUpperCase(),
                       style: const TextStyle(
                         color: Colors.white,
                         fontSize: 24,
@@ -116,7 +116,7 @@ class ModernDosenCardState extends State<ModernDosenCard> with SingleTickerProvi
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        widget.dosen.nama,
+                        widget.dosen.name,
                         style: const TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.bold,
@@ -126,11 +126,14 @@ class ModernDosenCardState extends State<ModernDosenCard> with SingleTickerProvi
                         overflow: TextOverflow.ellipsis,
                       ),
                       const SizedBox(height: 8),
-                      _buildInfoRow(Icons.badge_outlined, 'NIP: ${widget.dosen.nip}'),
+                      _buildInfoRow(Icons.badge_outlined, 'id: ${widget.dosen.id}'),
+                      const SizedBox(height: 8),
+                      _buildInfoRow(Icons.badge_outlined, 'name: ${widget.dosen.name}'),
+                      const SizedBox(height: 8),
+                      _buildInfoRow(Icons.badge_outlined, 'Username: ${widget.dosen.username}'),
+                      _buildInfoRow(Icons.email_outlined, 'Email: ${widget.dosen.email}'),
                       const SizedBox(height: 4),
-                      _buildInfoRow(Icons.email_outlined, widget.dosen.email),
-                      const SizedBox(height: 4),
-                      _buildInfoRow(Icons.school_outlined, widget.dosen.jurusan),
+                      _buildInfoRow(Icons.school_outlined, 'Adress: ${widget.dosen.address}'),
                     ],
                   ),
                 ),
